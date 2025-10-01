@@ -1,0 +1,8 @@
+config:
+  site:zone_id:
+    secure: AAABAMz+iQqNg8s9LVHCBSRpchn/OYffIqeBaTpROZxAWDgzd+tr08utiajnadVTnup9ffWtqIoX2Q9UYNGXow==
+  site:account_id:
+    secure: AAABAGQgmtHJNInZiFXafbF9sh7oP+BKJOrro6WbuUEV/rZP/e77EZZzO0c+ezJWF+WTKX9KyiCJgdC61XpKWw==
+  site:domain_name: salkeld.online
+  cloudflare:apiToken:
+    secure: AAABALQKLVs9LOieTrvx/lc80IqF3ygJnIIhmJ6fZCFgfY468JUci+wjuaTMvoplh9cBKJNfsWv3SsvgDhq2WXynY4z6+ucG
