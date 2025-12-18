@@ -1,0 +1,33 @@
+name: Ty Type Check
+
+on:
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  type-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      
+      - name: Install dependencies
+        run: |
+          uv sync --all-groups
+      
+      - name: Run ty type check
+        # Continue on error to make this advisory only
+        continue-on-error: true
+        timeout-minutes: 5
+        run: |
+          echo "Running ty type checker (advisory only - warnings will not fail the build)"
+          echo "Note: ty may timeout on complex codebases with large dependencies like Pulumi"
+          uv run ty check --exit-zero . || echo "Type check completed with warnings or timed out"
+          echo "Type check complete. Review warnings above if any."
