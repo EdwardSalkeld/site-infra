@@ -7,3 +7,13 @@ dependencies = [
     "pulumi-cloudflare>=6.9.1",
     "ruff>=0.13.2",
 ]
+
+[dependency-groups]
+dev = [
+    "ty>=0.0.3",
+]
+
+[tool.ty]
+# Ignore unresolved imports as pulumi and pulumi-cloudflare don't have complete type stubs
+[tool.ty.rules]
+unresolved-import = "ignore"
