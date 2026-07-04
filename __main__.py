@@ -103,7 +103,7 @@ def fastmail_dns():
         proxied=False,
         ttl=1,
         type="TXT",
-        content=f'"v=DMARC1; p=none; rua=mailto:dmarc@{domain_name}"',
+        content=f'"v=DMARC1; p=none; rua=mailto:billy@{domain_name}"',
         zone_id=zone,
     )
 
