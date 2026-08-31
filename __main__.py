@@ -62,6 +62,59 @@ def static_site(config: StaticSiteConfig):
     )
 
 
+def fastmail_dns():
+    for record_id, target, priority in [
+        ("mail-mx-primary", "in1-smtp.messagingengine.com", 10),
+        ("mail-mx-secondary", "in2-smtp.messagingengine.com", 20),
+    ]:
+        cloudflare.DnsRecord(
+            record_id,
+            name=domain_name,
+            proxied=False,
+            ttl=1,
+            type="MX",
+            content=target,
+            priority=priority,
+            zone_id=zone,
+        )
+
+    cloudflare.DnsRecord(
+        "mail-spf",
+        name=domain_name,
+        proxied=False,
+        ttl=1,
+        type="TXT",
+        content='"v=spf1 include:spf.messagingengine.com -all"',
+        zone_id=zone,
+    )
+
+    # DKIM must be DNS-only or Cloudflare proxying breaks the lookups
+    for n in (1, 2, 3):
+        cloudflare.DnsRecord(
+            f"mail-dkim-fm{n}",
+            name=f"fm{n}._domainkey.{domain_name}",
+            proxied=False,
+            ttl=1,
+            type="CNAME",
+            content=f"fm{n}.{domain_name}.dkim.fmhosted.com",
+            zone_id=zone,
+        )
+
+    # p=none is monitoring mode; tighten to quarantine/reject once reports look clean
+    cloudflare.DnsRecord(
+        "mail-dmarc",
+        name=f"_dmarc.{domain_name}",
+        proxied=False,
+        ttl=1,
+        type="TXT",
+        content=f'"v=DMARC1; p=none; rua=mailto:billy@{domain_name}"',
+        zone_id=zone,
+    )
+
+
+fastmail_dns()
+
+
 # main personal site
 personal = StaticSiteConfig()
 personal.build_config = {
