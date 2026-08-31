@@ -13,7 +13,7 @@ domain_name = config.require("domain_name")
 class StaticSiteConfig:
     resource_name: str = "site"
     site_name: str = "personal-site"
-    build_config: dict[str, str | bool] = field(
+    build_config: cloudflare.PagesProjectBuildConfigArgsDict = field(
         default_factory=lambda: {
             "build_caching": False,
             "build_command": "ls -la",
