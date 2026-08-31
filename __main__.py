@@ -1,4 +1,5 @@
-from typing import Any
+from dataclasses import dataclass, field
+
 import pulumi
 import pulumi_cloudflare as cloudflare
 
@@ -8,15 +9,18 @@ account_id = config.require_secret("account_id")
 domain_name = config.require("domain_name")
 
 
+@dataclass
 class StaticSiteConfig:
     resource_name: str = "site"
     site_name: str = "personal-site"
-    build_config: dict[str, str | bool] = {
-        "build_caching": False,
-        "build_command": "ls -la",
-        "destination_dir": "/html",
-        "root_dir": "/",
-    }
+    build_config: dict[str, str | bool] = field(
+        default_factory=lambda: {
+            "build_caching": False,
+            "build_command": "ls -la",
+            "destination_dir": "/html",
+            "root_dir": "/",
+        }
+    )
     repo_name: str = "site"
     domain_name: str = domain_name
 

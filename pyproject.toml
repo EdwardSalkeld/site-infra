@@ -3,9 +3,9 @@ name = "site-infra"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
-    "pulumi>=3.0.0,<4.0.0",
-    "pulumi-cloudflare>=6.9.1",
-    "ruff>=0.13.2",
+    "pulumi>=3.260.0,<4.0.0",
+    "pulumi-cloudflare>=6.20.0",
+    "ruff>=0.16.5",
 ]
 
 [dependency-groups]
