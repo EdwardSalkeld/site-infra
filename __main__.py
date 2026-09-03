@@ -133,7 +133,7 @@ liff_config.repo_name = "liff-archive"
 liff_config.domain_name = f"liff.{domain_name}"
 liff_config.build_config = {
     "build_caching": False,
-    "build_command": "hugo",
+    "build_command": "make ci-build",
     "destination_dir": "/public",
     "root_dir": "/hugo",
 }
