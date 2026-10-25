@@ -10,6 +10,22 @@ Cloudflare PagesProject to host site, with custom domain and DNS record.
 
 ## Development
 
+### Formatting
+
+Format the Python code from the repository root:
+
+```bash
+uv run ruff format .
+```
+
+Check formatting without changing files, using the same command as CI:
+
+```bash
+uv run ruff format --check .
+```
+
+Formatting is checked automatically on pull requests.
+
 ### Type Checking
 
 This project uses [ty](https://docs.astral.sh/ty/) for type checking. To run type checks locally:
